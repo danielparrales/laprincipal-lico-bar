@@ -1,0 +1,2559 @@
+/* =========================================================
+   MINIMARKET EL VECINO
+   ESTILO.CSS DEFINITIVO
+   TEMA: NEGRO + NARANJA
+   ========================================================= */
+
+
+/* =========================================================
+   1. VARIABLES GLOBALES
+   ========================================================= */
+
+:root {
+    --black: #050505;
+    --black-soft: #0b0b0b;
+    --black-card: #111111;
+    --black-light: #181818;
+
+    --orange: #ff6a00;
+    --orange-light: #ff8c1a;
+    --orange-dark: #d94f00;
+
+    --white: #ffffff;
+    --text: #f5f5f5;
+    --text-muted: #999999;
+
+    --border: rgba(255, 106, 0, 0.22);
+    --border-light: rgba(255, 255, 255, 0.08);
+
+    --orange-glow:
+        0 0 10px rgba(255, 106, 0, 0.35),
+        0 0 25px rgba(255, 106, 0, 0.15);
+
+    --shadow:
+        0 20px 50px rgba(0, 0, 0, 0.65);
+
+    --transition:
+        all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   2. RESET GENERAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+}
+
+
+/* =========================================================
+   3. LOGIN / REGISTRO
+   CONSERVADO DEL DISEÑO ORIGINAL
+   ========================================================= */
+
+.custom-body {
+    background-color: #e4e9f7;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.login-card {
+    position: relative;
+
+    width: 380px;
+    height: 520px;
+
+    background: var(--black-card);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    transition:
+        height 0.7s cubic-bezier(
+            0.75,
+            -0.5,
+            0.27,
+            1.55
+        );
+
+    border: 2px solid rgba(255, 106, 0, 0.15);
+}
+
+.login-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    background: var(--orange);
+
+    filter: blur(100px);
+
+    opacity: 0.12;
+
+    top: -70px;
+    right: -70px;
+
+    pointer-events: none;
+}
+
+.login-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    background: var(--orange);
+
+    filter: blur(90px);
+
+    opacity: 0.08;
+
+    bottom: -70px;
+    left: -70px;
+
+    pointer-events: none;
+}
+
+.header {
+    position: absolute;
+
+    text-align: center;
+
+    transition:
+        0.5s cubic-bezier(
+            0.75,
+            -0.5,
+            0.27,
+            1.55
+        );
+
+    z-index: 2;
+}
+
+.header h2 {
+    color: var(--white);
+
+    font-size: 32px;
+
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: var(--text-muted);
+
+    font-size: 14px;
+}
+
+.form-content {
+    width: 80%;
+
+    opacity: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    transition: 0.3s ease;
+
+    position: absolute;
+
+    transform: translateY(50px);
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.input-group label {
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    background: #181818;
+
+    border: 1px solid #333;
+
+    border-radius: 12px;
+
+    padding: 12px 16px;
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: var(--transition);
+}
+
+.input-group input:focus {
+    border-color: var(--orange);
+
+    box-shadow:
+        0 0 10px rgba(255, 106, 0, 0.25);
+}
+
+.submit-btn {
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange-dark)
+        );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    box-shadow:
+        0 8px 20px rgba(255, 106, 0, 0.18);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(255, 106, 0, 0.35);
+}
+
+.footer-text {
+    position: absolute;
+
+    bottom: 30px;
+
+    opacity: 0;
+
+    transition: 0.3s;
+
+    z-index: 4;
+}
+
+.footer-text a {
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+    transition: var(--transition);
+}
+
+.footer-text a:hover {
+    color: var(--orange);
+}
+
+.login-card:hover {
+    height: 580px;
+
+    border-color:
+        rgba(255, 106, 0, 0.35);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.55),
+        0 0 30px rgba(255, 106, 0, 0.08);
+}
+
+.login-card:hover .header {
+    transform: translateY(-220px);
+}
+
+.login-card:hover .form-content {
+    opacity: 1;
+
+    transform: translateY(20px);
+
+    pointer-events: all;
+}
+
+.login-card:hover .footer-text {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   4. PÁGINA PRINCIPAL DE LICORES
+   TODO EL DISEÑO QUEDA DENTRO DE .liquor-page
+   ========================================================= */
+
+.liquor-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 80% 10%,
+            rgba(255, 106, 0, 0.08),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 10% 40%,
+            rgba(255, 106, 0, 0.04),
+            transparent 25%
+        ),
+        #050505;
+
+    color: white;
+
+    overflow-x: hidden;
+}
+
+.liquor-page a {
+    text-decoration: none;
+}
+
+.liquor-page button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   5. BARRA DE NAVEGACIÓN
+   ========================================================= */
+
+.liquor-page .main-header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 78px;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+        rgba(5, 5, 5, 0.82);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border-bottom:
+        1px solid
+        rgba(255, 106, 0, 0.12);
+
+    transition: var(--transition);
+}
+
+.liquor-page .main-header:hover {
+    border-bottom-color:
+        rgba(255, 106, 0, 0.3);
+}
+
+.liquor-page .nav-container {
+    width: min(1200px, 92%);
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+/* =========================================================
+   6. LOGO
+   ========================================================= */
+
+.liquor-page .brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: white;
+
+    font-weight: 800;
+
+    font-size: 20px;
+}
+
+.liquor-page .brand-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange-dark)
+        );
+
+    color: white;
+
+    box-shadow:
+        0 0 20px rgba(255, 106, 0, 0.3);
+
+    transition: var(--transition);
+}
+
+.liquor-page .brand:hover .brand-icon {
+    transform:
+        rotate(-8deg)
+        scale(1.08);
+
+    box-shadow:
+        0 0 30px rgba(255, 106, 0, 0.55);
+}
+
+.liquor-page .brand span {
+    color: var(--orange);
+}
+
+
+/* =========================================================
+   7. MENÚ
+   ========================================================= */
+
+.liquor-page .nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.liquor-page .nav-links a {
+    position: relative;
+
+    color: #cfcfcf;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: var(--transition);
+}
+
+.liquor-page .nav-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 4px;
+
+    width: 0;
+    height: 2px;
+
+    background: var(--orange);
+
+    transform: translateX(-50%);
+
+    transition: var(--transition);
+}
+
+.liquor-page .nav-links a:hover {
+    color: white;
+
+    background:
+        rgba(255, 106, 0, 0.08);
+
+    transform:
+        translateY(-2px);
+}
+
+.liquor-page .nav-links a:hover::after {
+    width: 55%;
+}
+
+
+/* =========================================================
+   8. BOTÓN CARRITO
+   ========================================================= */
+
+.liquor-page .cart-button {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 48px;
+    height: 46px;
+
+    padding: 0 15px;
+
+    border-radius: 13px;
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.3);
+
+    background:
+        rgba(255, 106, 0, 0.07);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.liquor-page .cart-button:hover {
+    background: var(--orange);
+
+    border-color: var(--orange);
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(255, 106, 0, 0.3);
+}
+
+.liquor-page .cart-count {
+    min-width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--orange);
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   9. HERO
+   ========================================================= */
+
+.liquor-page .hero-section {
+    position: relative;
+
+    min-height: 780px;
+
+    padding-top: 140px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.liquor-page .hero-section::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    right: -200px;
+    top: 100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 106, 0, 0.18),
+            transparent 65%
+        );
+
+    filter: blur(10px);
+
+    pointer-events: none;
+}
+
+.liquor-page .hero-section::after {
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    left: -200px;
+    bottom: -200px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 106, 0, 0.08),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+.liquor-page .hero-container {
+    width: min(1200px, 92%);
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.05fr
+        0.95fr;
+
+    align-items: center;
+
+    gap: 50px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   10. TEXTO HERO
+   ========================================================= */
+
+.liquor-page .hero-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    border-radius: 100px;
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.25);
+
+    background:
+        rgba(255, 106, 0, 0.07);
+
+    color:
+        var(--orange-light);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 20px;
+}
+
+.liquor-page .hero-title {
+    font-size: clamp(
+        46px,
+        6vw,
+        82px
+    );
+
+    line-height: 0.95;
+
+    font-weight: 900;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+.liquor-page .hero-title span {
+    display: block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff6a00,
+            #ff9a3d,
+            #ff6a00
+        );
+
+    background-size: 200% auto;
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    animation:
+        orangeGradient 5s linear infinite;
+}
+
+@keyframes orangeGradient {
+
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.liquor-page .hero-description {
+    max-width: 560px;
+
+    color: #a5a5a5;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+    margin-bottom: 32px;
+}
+
+
+/* =========================================================
+   11. BOTONES HERO
+   ========================================================= */
+
+.liquor-page .hero-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+}
+
+.liquor-page .primary-button {
+    position: relative;
+
+    overflow: hidden;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 15px 25px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange-dark)
+        );
+
+    color: white;
+
+    font-weight: 800;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+
+    box-shadow:
+        0 10px 30px
+        rgba(255, 106, 0, 0.25);
+}
+
+.liquor-page .primary-button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: 0.7s;
+}
+
+.liquor-page .primary-button:hover::before {
+    left: 130%;
+}
+
+.liquor-page .primary-button:hover {
+    transform:
+        translateY(-5px)
+        scale(1.02);
+
+    box-shadow:
+        0 18px 40px
+        rgba(255, 106, 0, 0.4);
+}
+
+.liquor-page .secondary-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 24px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    color: white;
+
+    background:
+        rgba(255, 255, 255, 0.03);
+
+    font-weight: 700;
+
+    transition: var(--transition);
+}
+
+.liquor-page .secondary-button:hover {
+    border-color:
+        rgba(255, 106, 0, 0.5);
+
+    color: var(--orange);
+
+    background:
+        rgba(255, 106, 0, 0.05);
+
+    transform:
+        translateY(-4px);
+}
+
+
+/* =========================================================
+   12. BOTELLA 3D
+   ========================================================= */
+
+.liquor-page .hero-visual {
+    position: relative;
+
+    min-height: 520px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    perspective: 1000px;
+}
+
+.liquor-page .hero-glow {
+    position: absolute;
+
+    width: 380px;
+    height: 380px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 106, 0, 0.3),
+            rgba(255, 106, 0, 0.04),
+            transparent 70%
+        );
+
+    filter: blur(15px);
+
+    animation:
+        pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+.liquor-page .bottle-3d {
+    position: relative;
+
+    width: 180px;
+    height: 410px;
+
+    border-radius:
+        35px
+        35px
+        48px
+        48px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #151515,
+            #383838,
+            #111111,
+            #242424
+        );
+
+    box-shadow:
+        inset 10px 0 20px
+            rgba(255, 255, 255, 0.05),
+
+        inset -15px 0 30px
+            rgba(0, 0, 0, 0.7),
+
+        30px 35px 60px
+            rgba(0, 0, 0, 0.7),
+
+        0 0 45px
+            rgba(255, 106, 0, 0.16);
+
+    transform:
+        rotateY(-15deg)
+        rotateX(4deg);
+
+    animation:
+        floatingBottle 5s ease-in-out infinite;
+
+    z-index: 3;
+}
+
+@keyframes floatingBottle {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotateY(-15deg)
+            rotateX(4deg);
+    }
+
+    50% {
+        transform:
+            translateY(-18px)
+            rotateY(15deg)
+            rotateX(-2deg);
+    }
+}
+
+.liquor-page .bottle-3d::before {
+    content: "";
+
+    position: absolute;
+
+    top: -72px;
+    left: 52px;
+
+    width: 76px;
+    height: 80px;
+
+    border-radius:
+        12px
+        12px
+        8px
+        8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #111,
+            #444,
+            #111
+        );
+
+    box-shadow:
+        inset 8px 0 10px
+            rgba(255, 255, 255, 0.06),
+
+        0 -10px 15px
+            rgba(0, 0, 0, 0.5);
+}
+
+.liquor-page .bottle-3d::after {
+    content: "EL VECINO";
+
+    position: absolute;
+
+    left: 15px;
+    right: 15px;
+
+    top: 155px;
+
+    height: 115px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff6a00,
+            #b83e00
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   13. ORBITAS DECORATIVAS
+   ========================================================= */
+
+.liquor-page .orbit {
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.16);
+
+    border-radius: 50%;
+
+    transform:
+        rotateX(65deg)
+        rotateZ(20deg);
+
+    animation:
+        orbitRotate 15s linear infinite;
+}
+
+.liquor-page .orbit::before {
+    content: "";
+
+    position: absolute;
+
+    width: 10px;
+    height: 10px;
+
+    background:
+        var(--orange);
+
+    border-radius: 50%;
+
+    top: 15px;
+    left: 50%;
+
+    box-shadow:
+        0 0 20px
+        var(--orange);
+}
+
+@keyframes orbitRotate {
+
+    from {
+        transform:
+            rotateX(65deg)
+            rotateZ(0deg);
+    }
+
+    to {
+        transform:
+            rotateX(65deg)
+            rotateZ(360deg);
+    }
+}
+
+
+/* =========================================================
+   14. SECCIONES
+   ========================================================= */
+
+.liquor-page .section-container {
+    width: min(1200px, 92%);
+
+    margin: auto;
+
+    padding: 100px 0;
+}
+
+.liquor-page .section-heading {
+    text-align: center;
+
+    margin-bottom: 55px;
+}
+
+.liquor-page .section-heading small {
+    display: block;
+
+    color: var(--orange);
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.liquor-page .section-heading h2 {
+    font-size:
+        clamp(30px, 5vw, 48px);
+
+    font-weight: 900;
+
+    margin-bottom: 15px;
+}
+
+.liquor-page .section-heading p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: #888;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   15. CATEGORÍAS
+   ========================================================= */
+
+.liquor-page .categories-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.liquor-page .category-card {
+    position: relative;
+
+    min-height: 190px;
+
+    padding: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    background:
+        linear-gradient(
+            145deg,
+            #161616,
+            #0b0b0b
+        );
+
+    transition: var(--transition);
+}
+
+.liquor-page .category-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    right: -35px;
+    top: -35px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 106, 0, 0.25),
+            transparent 70%
+        );
+
+    transition: var(--transition);
+}
+
+.liquor-page .category-card:hover {
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(255, 106, 0, 0.4);
+
+    box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, 0.45),
+
+        0 0 25px
+        rgba(255, 106, 0, 0.08);
+}
+
+.liquor-page .category-card:hover::before {
+    transform: scale(1.5);
+}
+
+.liquor-page .category-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255, 106, 0, 0.1);
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.2);
+
+    color: var(--orange);
+
+    font-size: 25px;
+
+    margin-bottom: auto;
+
+    transition: var(--transition);
+}
+
+.liquor-page .category-card:hover .category-icon {
+    background: var(--orange);
+
+    color: white;
+
+    transform:
+        rotate(-5deg)
+        scale(1.08);
+
+    box-shadow:
+        0 10px 25px
+        rgba(255, 106, 0, 0.3);
+}
+
+.liquor-page .category-card h3 {
+    font-size: 19px;
+
+    margin-bottom: 5px;
+}
+
+.liquor-page .category-card p {
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   16. PRODUCTOS
+   ========================================================= */
+
+.liquor-page .products-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+.liquor-page .product-card {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #0d0d0d
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    transition:
+        transform 0.45s
+            cubic-bezier(
+                0.22,
+                1,
+                0.36,
+                1
+            ),
+
+        box-shadow 0.45s,
+
+        border-color 0.45s;
+
+    transform-style: preserve-3d;
+}
+
+.liquor-page .product-card:hover {
+    transform:
+        translateY(-12px)
+        rotateX(2deg);
+
+    border-color:
+        rgba(255, 106, 0, 0.38);
+
+    box-shadow:
+        0 25px 50px
+        rgba(0, 0, 0, 0.6),
+
+        0 0 30px
+        rgba(255, 106, 0, 0.08);
+}
+
+.liquor-page .product-image {
+    position: relative;
+
+    height: 250px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 106, 0, 0.12),
+            transparent 65%
+        );
+
+    overflow: hidden;
+}
+
+.liquor-page .product-image::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 106, 0, 0.08);
+
+    filter: blur(25px);
+}
+
+.liquor-page .product-image img {
+    position: relative;
+
+    max-width: 80%;
+
+    max-height: 220px;
+
+    object-fit: contain;
+
+    z-index: 2;
+
+    transition: var(--transition);
+
+    filter:
+        drop-shadow(
+            0 20px 20px
+            rgba(0, 0, 0, 0.55)
+        );
+}
+
+.liquor-page .product-card:hover .product-image img {
+    transform:
+        translateY(-8px)
+        scale(1.07);
+}
+
+.liquor-page .product-info {
+    padding: 20px;
+}
+
+.liquor-page .product-category {
+    color: var(--orange);
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.2px;
+
+    font-weight: 800;
+
+    margin-bottom: 7px;
+}
+
+.liquor-page .product-name {
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 750;
+
+    margin-bottom: 10px;
+}
+
+.liquor-page .product-price {
+    color: var(--orange);
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+.liquor-page .product-price span {
+    color: #777;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.liquor-page .product-action {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 106, 0, 0.1);
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.2);
+
+    color: var(--orange);
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.liquor-page .product-action:hover {
+    background: var(--orange);
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(255, 106, 0, 0.25);
+}
+
+
+/* =========================================================
+   17. BADGE DE OFERTA
+   ========================================================= */
+
+.liquor-page .offer-badge {
+    position: absolute;
+
+    top: 15px;
+    left: 15px;
+
+    z-index: 5;
+
+    padding: 7px 11px;
+
+    border-radius: 8px;
+
+    background:
+        var(--orange);
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    box-shadow:
+        0 5px 15px
+        rgba(255, 106, 0, 0.25);
+}
+
+
+/* =========================================================
+   18. SECCIÓN OFERTAS
+   ========================================================= */
+
+.liquor-page .offer-section {
+    position: relative;
+
+    margin: 50px auto;
+
+    width: min(1200px, 92%);
+
+    padding: 70px;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            #171717,
+            #090909
+        );
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.2);
+
+    box-shadow:
+        var(--shadow);
+}
+
+.liquor-page .offer-section::before {
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    right: -180px;
+    top: -200px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 106, 0, 0.25),
+            transparent 70%
+        );
+}
+
+.liquor-page .offer-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+}
+
+.liquor-page .offer-content h2 {
+    font-size:
+        clamp(30px, 5vw, 55px);
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    margin-bottom: 18px;
+}
+
+.liquor-page .offer-content h2 span {
+    color: var(--orange);
+}
+
+.liquor-page .offer-content p {
+    color: #999;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   19. BENEFICIOS
+   ========================================================= */
+
+.liquor-page .benefits-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.liquor-page .benefit-card {
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    transition: var(--transition);
+}
+
+.liquor-page .benefit-card:hover {
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255, 106, 0, 0.3);
+
+    background:
+        rgba(255, 106, 0, 0.04);
+}
+
+.liquor-page .benefit-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255, 106, 0, 0.1);
+
+    color: var(--orange);
+
+    margin-bottom: 18px;
+
+    font-size: 22px;
+}
+
+.liquor-page .benefit-card h3 {
+    margin-bottom: 8px;
+
+    font-size: 18px;
+}
+
+.liquor-page .benefit-card p {
+    color: #777;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   20. FOOTER
+   ========================================================= */
+
+.liquor-page .footer {
+    margin-top: 80px;
+
+    padding:
+        60px 0 30px;
+
+    border-top:
+        1px solid
+        rgba(255, 106, 0, 0.12);
+
+    background:
+        #030303;
+}
+
+.liquor-page .footer-container {
+    width: min(1200px, 92%);
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr
+        1fr
+        1fr;
+
+    gap: 50px;
+}
+
+.liquor-page .footer h3 {
+    margin-bottom: 18px;
+}
+
+.liquor-page .footer p {
+    color: #777;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+.liquor-page .footer-links {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.liquor-page .footer-links a {
+    color: #888;
+
+    transition: var(--transition);
+}
+
+.liquor-page .footer-links a:hover {
+    color: var(--orange);
+
+    transform:
+        translateX(4px);
+}
+
+.liquor-page .footer-bottom {
+    width: min(1200px, 92%);
+
+    margin: 50px auto 0;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.06);
+
+    color: #555;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   21. BOTONES FLOTANTES
+   ========================================================= */
+
+.liquor-page .floating-button {
+    position: fixed;
+
+    right: 22px;
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 900;
+
+    cursor: pointer;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.1);
+
+    transition: var(--transition);
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.5);
+}
+
+.liquor-page .floating-button:hover {
+    transform:
+        translateY(-6px)
+        scale(1.08);
+}
+
+.liquor-page .floating-cart {
+    bottom: 95px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--orange),
+            var(--orange-dark)
+        );
+
+    color: white;
+}
+
+.liquor-page .floating-whatsapp {
+    bottom: 25px;
+
+    background:
+        #161616;
+
+    color:
+        var(--orange);
+
+    border-color:
+        rgba(255, 106, 0, 0.35);
+}
+
+.liquor-page .floating-whatsapp:hover {
+    background: var(--orange);
+
+    color: white;
+
+    border-color: var(--orange);
+}
+
+
+/* =========================================================
+   22. MODAL DEL CARRITO
+   ========================================================= */
+
+.liquor-page .cart-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    background:
+        rgba(0, 0, 0, 0.8);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.liquor-page .cart-modal {
+    width: min(550px, 100%);
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #090909
+        );
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.25);
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.75);
+
+    animation:
+        modalIn 0.35s ease;
+}
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+.liquor-page .cart-header {
+    padding: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+}
+
+.liquor-page .cart-header h2 {
+    font-size: 22px;
+}
+
+.liquor-page .close-button {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.liquor-page .close-button:hover {
+    background: var(--orange);
+
+    color: white;
+
+    transform: rotate(90deg);
+}
+
+.liquor-page .cart-body {
+    padding: 20px;
+}
+
+.liquor-page .cart-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.06);
+}
+
+.liquor-page .cart-item:last-child {
+    border-bottom: none;
+}
+
+.liquor-page .cart-item-image {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 12px;
+
+    object-fit: cover;
+
+    background: #151515;
+}
+
+.liquor-page .cart-item-info {
+    flex: 1;
+}
+
+.liquor-page .cart-item-info h4 {
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+.liquor-page .cart-item-info span {
+    color: var(--orange);
+
+    font-weight: 800;
+
+    font-size: 13px;
+}
+
+.liquor-page .remove-item {
+    border: none;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color: #888;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.liquor-page .remove-item:hover {
+    background:
+        rgba(255, 70, 70, 0.12);
+
+    color:
+        #ff5555;
+}
+
+.liquor-page .cart-footer {
+    padding: 22px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+}
+
+.liquor-page .cart-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    font-size: 18px;
+}
+
+.liquor-page .cart-total strong {
+    color: var(--orange);
+
+    font-size: 25px;
+}
+
+
+/* =========================================================
+   23. ADMINISTRACIÓN
+   ========================================================= */
+
+.liquor-page .admin-actions {
+    position: fixed;
+
+    left: 22px;
+    bottom: 25px;
+
+    z-index: 800;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.liquor-page .admin-button {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 15px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(15, 15, 15, 0.92);
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.25);
+
+    color: #aaa;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: var(--transition);
+}
+
+.liquor-page .admin-button:hover {
+    color: white;
+
+    border-color:
+        var(--orange);
+
+    background:
+        rgba(255, 106, 0, 0.1);
+
+    transform:
+        translateX(5px);
+}
+
+
+/* =========================================================
+   24. MENÚ MÓVIL
+   ========================================================= */
+
+.liquor-page .mobile-menu-button {
+    display: none;
+
+    width: 44px;
+    height: 44px;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(255, 106, 0, 0.2);
+
+    background:
+        rgba(255, 106, 0, 0.06);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   25. ANIMACIONES DE ENTRADA
+   ========================================================= */
+
+.liquor-page .fade-up {
+    animation:
+        fadeUp 0.8s ease both;
+}
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+.liquor-page .delay-1 {
+    animation-delay: 0.1s;
+}
+
+.liquor-page .delay-2 {
+    animation-delay: 0.2s;
+}
+
+.liquor-page .delay-3 {
+    animation-delay: 0.3s;
+}
+
+.liquor-page .delay-4 {
+    animation-delay: 0.4s;
+}
+
+
+/* =========================================================
+   26. SCROLLBAR
+   ========================================================= */
+
+.liquor-page::-webkit-scrollbar {
+    width: 10px;
+}
+
+.liquor-page::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+.liquor-page::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            var(--orange),
+            var(--orange-dark)
+        );
+
+    border-radius: 20px;
+}
+
+.liquor-page::-webkit-scrollbar-thumb:hover {
+    background:
+        var(--orange-light);
+}
+
+
+/* =========================================================
+   27. SELECCIÓN DE TEXTO
+   ========================================================= */
+
+.liquor-page ::selection {
+    background: var(--orange);
+
+    color: white;
+}
+
+
+/* =========================================================
+   28. RESPONSIVE TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .liquor-page .hero-container {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+    .liquor-page .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .liquor-page .hero-buttons {
+        justify-content: center;
+    }
+
+    .liquor-page .hero-visual {
+        min-height: 450px;
+    }
+
+    .liquor-page .categories-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .liquor-page .products-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .liquor-page .footer-container {
+        grid-template-columns:
+            1fr 1fr;
+    }
+}
+
+
+/* =========================================================
+   29. RESPONSIVE MÓVIL
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .liquor-page .main-header {
+        height: 68px;
+    }
+
+    .liquor-page .nav-container {
+        width: 94%;
+    }
+
+    .liquor-page .nav-links {
+        display: none;
+    }
+
+    .liquor-page .mobile-menu-button {
+        display: flex;
+    }
+
+    .liquor-page .hero-section {
+        min-height: auto;
+
+        padding-top: 120px;
+
+        padding-bottom: 60px;
+    }
+
+    .liquor-page .hero-title {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+    .liquor-page .hero-description {
+        font-size: 15px;
+    }
+
+    .liquor-page .hero-visual {
+        min-height: 390px;
+    }
+
+    .liquor-page .bottle-3d {
+        width: 145px;
+
+        height: 330px;
+    }
+
+    .liquor-page .bottle-3d::before {
+        left: 40px;
+
+        width: 65px;
+    }
+
+    .liquor-page .bottle-3d::after {
+        top: 120px;
+
+        height: 95px;
+
+        font-size: 11px;
+    }
+
+    .liquor-page .orbit {
+        width: 330px;
+        height: 330px;
+    }
+
+    .liquor-page .categories-grid,
+    .liquor-page .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .liquor-page .section-container {
+        padding: 70px 0;
+    }
+
+    .liquor-page .offer-section {
+        padding: 40px 25px;
+    }
+
+    .liquor-page .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .liquor-page .footer-container {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+    .liquor-page .floating-button {
+        width: 52px;
+        height: 52px;
+
+        right: 15px;
+    }
+
+    .liquor-page .floating-cart {
+        bottom: 80px;
+    }
+
+    .liquor-page .floating-whatsapp {
+        bottom: 18px;
+    }
+
+    .liquor-page .admin-actions {
+        left: 15px;
+
+        bottom: 18px;
+    }
+
+    .liquor-page .admin-button {
+        padding: 9px 11px;
+
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   30. MÓVILES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .login-card {
+        width: 100%;
+
+        max-width: 360px;
+    }
+
+    .liquor-page .brand {
+        font-size: 16px;
+    }
+
+    .liquor-page .brand-icon {
+        width: 37px;
+        height: 37px;
+    }
+
+    .liquor-page .hero-title {
+        font-size: 41px;
+    }
+
+    .liquor-page .hero-buttons {
+        flex-direction: column;
+    }
+
+    .liquor-page .primary-button,
+    .liquor-page .secondary-button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   31. REDUCIR ANIMACIONES SI EL USUARIO LO PREFIERE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        scroll-behavior: auto !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}
+/* Ocultar botella 3D decorativa */
+.liquor-page .bottle-3d {
+    display: none !important;
+}
+.masked-category-title,
+.masked-title {
+    color: transparent;
+    background-image: url('https://images.unsplash.com/photo-1732535725600-f805d8b33c9c?q=80&w=1470&auto=format&fit=crop'); 
+    background-size: 200%;
+    background-position: 0 50%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate-category-bg 6s infinite alternate linear;
+}
+
+@keyframes animate-category-bg {
+    0% {
+        background-position: 0 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
