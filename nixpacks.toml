@@ -3,6 +3,6 @@ nixPkgs = ["php84", "php84-extensions", "composer", "nodejs"]
 
 [phases.build]
 cmds = [
-    "composer install --no-dev --optimize-autoloader",
+    "php84 $(which composer) install --no-dev --optimize-autoloader --no-interaction",
     "npm install && npm run build"
 ]
