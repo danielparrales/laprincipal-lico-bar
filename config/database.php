@@ -35,7 +35,17 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => env('DB_DATABASE', function () {
+                $path = database_path('database.sqlite');
+                if (!file_exists($path)) {
+                    // Asegura que la carpeta exista y crea el archivo vacío
+                    if (!is_dir(dirname($path))) {
+                        mkdir(dirname($path), 0755, true);
+                    }
+                    touch($path);
+                }
+                return $path;
+            }),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
             'busy_timeout' => null,
