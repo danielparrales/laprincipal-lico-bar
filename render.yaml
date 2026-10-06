@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: licoreria-el-vecino
+    runtime: php
+    region: oregon
+    plan: free
+    buildCommand: "composer install"
+    startCommand: "php artisan migrate --force && php -S 0.0.0.0:$PORT -t public"
