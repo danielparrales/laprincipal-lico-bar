@@ -8,6 +8,16 @@ test('login screen can be rendered', function () {
     $response->assertStatus(200);
 });
 
+test('login assets use the forwarded https scheme', function () {
+    $response = $this->withServerVariables([
+        'HTTP_X_FORWARDED_PROTO' => 'https',
+        'HTTP_X_FORWARDED_HOST' => 'store.test',
+    ])->get('/login');
+
+    $response->assertOk();
+    $response->assertSee('href="https://store.test/css/estilo.css"', false);
+});
+
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 

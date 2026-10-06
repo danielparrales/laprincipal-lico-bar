@@ -68,7 +68,9 @@ body {
    ========================================================= */
 
 .custom-body {
-    background-color: #e4e9f7;
+    background:
+        radial-gradient(circle at top, rgba(255, 106, 0, 0.11), transparent 36%),
+        var(--black);
     min-height: 100vh;
 
     display: flex;
@@ -81,8 +83,9 @@ body {
 .login-card {
     position: relative;
 
-    width: 380px;
-    height: 520px;
+    width: min(100%, 420px);
+    height: auto;
+    padding: 42px 34px 30px;
 
     background: var(--black-card);
 
@@ -95,16 +98,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 28px;
 
     overflow: hidden;
 
-    transition:
-        height 0.7s cubic-bezier(
-            0.75,
-            -0.5,
-            0.27,
-            1.55
-        );
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
     border: 2px solid rgba(255, 106, 0, 0.15);
 }
@@ -150,7 +148,7 @@ body {
 }
 
 .header {
-    position: absolute;
+    position: relative;
 
     text-align: center;
 
@@ -180,9 +178,9 @@ body {
 }
 
 .form-content {
-    width: 80%;
+    width: 100%;
 
-    opacity: 0;
+    opacity: 1;
 
     display: flex;
     flex-direction: column;
@@ -191,11 +189,11 @@ body {
 
     transition: 0.3s ease;
 
-    position: absolute;
+    position: relative;
 
-    transform: translateY(50px);
+    transform: none;
 
-    pointer-events: none;
+    pointer-events: auto;
 
     z-index: 3;
 }
@@ -274,11 +272,9 @@ body {
 }
 
 .footer-text {
-    position: absolute;
+    position: relative;
 
-    bottom: 30px;
-
-    opacity: 0;
+    opacity: 1;
 
     transition: 0.3s;
 
@@ -300,30 +296,12 @@ body {
 }
 
 .login-card:hover {
-    height: 580px;
-
     border-color:
         rgba(255, 106, 0, 0.35);
 
     box-shadow:
         0 25px 60px rgba(0, 0, 0, 0.55),
         0 0 30px rgba(255, 106, 0, 0.08);
-}
-
-.login-card:hover .header {
-    transform: translateY(-220px);
-}
-
-.login-card:hover .form-content {
-    opacity: 1;
-
-    transform: translateY(20px);
-
-    pointer-events: all;
-}
-
-.login-card:hover .footer-text {
-    opacity: 1;
 }
 
 
