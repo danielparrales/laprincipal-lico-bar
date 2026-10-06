@@ -25,6 +25,6 @@ class HomeController extends Controller
         $productos = $query->get();
 
         // 6. Enviamos ambas variables (productos y categorías) a la vista Bienvenida
-        return view('Bienvenida', compact('productos', 'categorias'));
+        return view('bienvenida', compact('productos', 'categorias'));
     }
 }
