@@ -10,21 +10,12 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        // 2. Traemos todas las categorías para mostrarlas en las tarjetas de arriba
-        $categorias = Categoria::all();
+        $categorias = Categoria::withCount('productos')->orderBy('nombre')->get();
+        $productos = Producto::with('categoria')
+            ->when($request->filled('categoria'), fn ($query) => $query->where('categoria_id', $request->query('categoria')))
+            ->orderBy('nombre')
+            ->get();
 
-        // 3. Iniciamos la consulta para los productos
-        $query = Producto::query();
-
-        // 4. Si el usuario hizo clic en una categoría, filtramos los productos
-        if ($request->has('categoria') && $request->categoria != '') {
-            $query->where('categoria_id', $request->categoria);
-        }
-
-        // 5. Obtenemos los productos (ya sea filtrados o todos si no hay selección)
-        $productos = $query->get();
-
-        // 6. Enviamos ambas variables (productos y categorías) a la vista Bienvenida
         return view('bienvenida', compact('productos', 'categorias'));
     }
 }

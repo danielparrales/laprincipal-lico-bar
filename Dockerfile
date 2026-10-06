@@ -33,7 +33,9 @@ EXPOSE 8080
 
 CMD php artisan config:clear && \
     php artisan cache:clear && \
-    php artisan migrate --force || true && \
+    php artisan migrate --force && \
+    php artisan db:seed --force && \
+    php artisan storage:link --force && \
     sed -i "s/80/${PORT:-8080}/g" /etc/apache2/ports.conf && \
     sed -i "s/80/${PORT:-8080}/g" /etc/apache2/sites-available/000-default.conf && \
     apache2-foreground

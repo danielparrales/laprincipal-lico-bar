@@ -13,6 +13,7 @@ use App\Models\User;
 
 // 1. Tu tienda principal (pública)
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/pedidos', [PedidoController::class, 'store'])->name('pedidos.store');
 
 // 2. Rutas protegidas para USUARIOS LOGUEADOS (Redirección inteligente en el Dashboard)
 Route::middleware(['auth', 'verified'])->group(function () {

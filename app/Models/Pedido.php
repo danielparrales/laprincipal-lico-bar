@@ -11,7 +11,13 @@ class Pedido extends Model
 
     protected $fillable = [
         'cliente',
+        'telefono',
         'total',
         'estado',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(PedidoItem::class);
+    }
 }

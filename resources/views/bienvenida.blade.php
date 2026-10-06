@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Licorería El Vecino | Licores, Vinos y Bebidas</title>
 
@@ -482,62 +483,28 @@
             CATEGORÍAS
         ====================================================== -->
         
-        <section id="categorias" class="categories-section py-8">
-           <section id="categorias" class="categories-section py-12">
-    <div class="max-w-7xl mx-auto px-4">
+        <section id="categorias" class="section-container categories-section">
+            <div class="section-heading">
+                <small>Explora</small>
+                <h2 class="masked-category-title">Categorías</h2>
+                <p>Encuentra la bebida perfecta para cada ocasión.</p>
+            </div>
 
-        <div class="text-center mb-10">
-            <span class="text-sm font-bold uppercase tracking-[0.3em] text-orange-500">
-                Explora
-            </span>
-            
-            <h2 class="masked-category-title text-4xl sm:text-5xl font-black mt-1 uppercase tracking-wider">
-                Categorías
-            </h2>
-
-            <p class="text-zinc-400 text-sm mt-2">
-                Encuentra la bebida perfecta para cada ocasión.
-            </p>
-        </div>
-
-        <!-- Tus tarjetas de categorías -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            @foreach($categorias as $cat)
-                <!-- ... tus elementos ... -->
-            @endforeach
-        </div>
-
-    </div>
-</section>
-    
-                @if(request('categoria'))
-                    <div class="mb-6 flex justify-center">
-                        <a href="{{ url('/#productos') }}" class="px-4 py-2 rounded-xl bg-orange-500 text-black font-bold text-sm hover:bg-orange-400 transition">
-                            <i class="fa-solid fa-rotate-left mr-2"></i> Ver todos los productos
-                        </a>
-                    </div>
-                @endif
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            @if($categorias->isNotEmpty())
+                <div class="categories-grid">
                     @foreach($categorias as $cat)
-                        <a href="{{ url('/?categoria=' . $cat->id . '#productos') }}"
-                           class="category-card p-6 rounded-2xl border transition hover:border-orange-500 block {{ request('categoria') == $cat->id ? 'border-orange-500 bg-orange-500/10' : 'border-zinc-800 bg-[#121215]' }}">
-
-                            <div class="flex items-center justify-between">
-                                <div class="category-icon text-orange-500 text-2xl">
-                                    <i class="fa-solid fa-wine-bottle"></i>
-                                </div>
-                                <i class="fa-solid fa-arrow-right text-zinc-500 category-arrow"></i>
+                        <a href="{{ url('/?categoria=' . $cat->id . '#productos') }}" class="category-card">
+                            <div class="category-icon">
+                                <i class="fa-solid fa-wine-bottle"></i>
                             </div>
-
-                            <div class="mt-4">
-                                <h3 class="text-white font-bold text-lg">{{ $cat->nombre }}</h3>
-                                <p class="text-xs text-zinc-400 mt-1">Ver productos disponibles.</p>
-                            </div>
+                            <h3>{{ $cat->nombre }}</h3>
+                            <p>{{ $cat->productos_count }} productos</p>
                         </a>
                     @endforeach
                 </div>
-            </div>
+            @else
+                <p class="text-center text-zinc-400">Todavía no hay categorías disponibles.</p>
+            @endif
         </section>
         <!-- =====================================================
             PRODUCTOS
@@ -617,7 +584,7 @@
                             <div class="product-info">
 
                                 <span class="product-category">
-                                    Licorería El Vecino
+                                    {{ $producto->categoria?->nombre ?? 'Licorería El Vecino' }}
                                 </span>
 
 
@@ -644,17 +611,24 @@
 
                                     <button
                                         @click="agregarAlCarrito(
+                                            @js($producto->id),
                                             @js($producto->nombre),
-                                            {{ (float)$producto->precio }}
+                                            {{ (float) $producto->precio }},
+                                            {{ (int) $producto->stock }}
                                         )"
                                         class="product-action"
-                                        title="Agregar al carrito">
+                                        title="Agregar al carrito"
+                                        @disabled($producto->stock < 1)>
 
-                                        <i class="fa-solid fa-plus"></i>
+                                        <i class="fa-solid {{ $producto->stock > 0 ? 'fa-plus' : 'fa-ban' }}"></i>
 
                                     </button>
 
                                 </div>
+
+                                @if($producto->stock < 1)
+                                    <p class="mt-2 text-xs text-red-400">Agotado</p>
+                                @endif
 
                             </div>
 
@@ -1254,36 +1228,8 @@
 
                 <!-- PRODUCTOS -->
 
-                <template x-if="carrito.length > 0">
-
-                    <!-- CONTENEDOR DEL CARRITO -->
-<div class="space-y-2 my-4">
-    
-    <template x-for="(item, index) in carrito" :key="index">
-        <div class="flex justify-between items-center p-3 border-b border-zinc-800">
-            <div>
-                <h4 class="text-white font-medium" x-text="item.nombre"></h4>
-                <span class="text-xs text-orange-400">Cantidad: <span x-text="item.cantidad || 1"></span></span>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="text-orange-500 font-bold">
-                    $<span x-text="(item.precio * (item.cantidad || 1)).toFixed(2)"></span>
-                </div>
-                <!-- Botón para eliminar el producto agrupado -->
-                <button @click="eliminarDelCarrito(index)" class="text-zinc-500 hover:text-red-400 text-xs">
-                    🗑️
-                </button>
-            </div>
-        </div>
-    </template>
-
-</div>
-
-                        <template
-                            x-for="(item, index) in carrito"
-                            :key="index">
-
-                            <div class="cart-item">
+                <template x-for="(item, index) in carrito" :key="item.producto_id">
+                    <div class="cart-item">
 
 
                                 <!-- ICONO -->
@@ -1321,12 +1267,7 @@
 
                                 </button>
 
-                            </div>
-
-                        </template>
-
                     </div>
-
                 </template>
 
             </div>
@@ -1338,6 +1279,13 @@
                 x-show="carrito.length > 0"
                 class="cart-footer">
 
+                <label class="mb-2 block text-sm text-zinc-300" for="pedido-cliente">Nombre</label>
+                <input id="pedido-cliente" x-model="cliente" required maxlength="255" class="mb-4 w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-white">
+
+                <label class="mb-2 block text-sm text-zinc-300" for="pedido-telefono">Teléfono</label>
+                <input id="pedido-telefono" type="tel" x-model="telefono" required minlength="8" maxlength="25" class="mb-4 w-full rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-white">
+
+                <div x-show="errorPedido" x-text="errorPedido" class="mb-3 text-sm text-red-400" role="alert"></div>
 
                 <div class="cart-total">
 
@@ -1354,17 +1302,18 @@
 
                 <button
                     @click="enviarAWhatsApp()"
-                    class="primary-button w-full justify-center">
+                    :disabled="procesandoPedido"
+                    class="primary-button w-full justify-center disabled:opacity-50">
 
                     <i class="fa-brands fa-whatsapp"></i>
 
-                    Pedir por WhatsApp
+                    <span x-text="procesandoPedido ? 'Registrando pedido...' : 'Confirmar y continuar por WhatsApp'"></span>
 
                 </button>
 
 
                 <button
-                    @click="carrito = []; modalAbierto = false"
+                    @click="vaciarCarrito()"
                     class="mt-2 w-full rounded-xl border border-gray-800 px-4 py-3 text-sm font-bold text-gray-500 transition hover:border-red-500 hover:text-red-400">
 
                     Vaciar carrito
@@ -1391,6 +1340,14 @@
                 carrito: [],
 
                 modalAbierto: false,
+
+                cliente: '',
+
+                telefono: '',
+
+                errorPedido: '',
+
+                procesandoPedido: false,
 
                 mostrarEdad: false,
 
@@ -1420,8 +1377,17 @@
 
                         try {
 
-                            this.carrito =
-                                JSON.parse(carritoGuardado);
+                            const carritoAnterior = JSON.parse(carritoGuardado);
+                            this.carrito = Array.isArray(carritoAnterior)
+                                ? carritoAnterior.filter(item => Number.isInteger(Number(item.producto_id)))
+                                    .map(item => ({
+                                        ...item,
+                                        producto_id: Number(item.producto_id),
+                                        cantidad: Number(item.cantidad) || 1,
+                                        precio: Number(item.precio),
+                                        stock: Number(item.stock) || 0,
+                                    }))
+                                : [];
 
                         } catch (error) {
 
@@ -1469,23 +1435,29 @@
                 CARRITO
 ============================================= */
 
-                agregarAlCarrito(nombre, precio) {
-                    // 1. Buscamos si el producto ya existe en el carrito
-                    let productoExistente = this.carrito.find(item => item.nombre === nombre);
+                agregarAlCarrito(productoId, nombre, precio, stock) {
+                    this.errorPedido = '';
+                    const productoExistente = this.carrito.find(item => item.producto_id === productoId);
 
                     if (productoExistente) {
-                        // Si ya existe, sumamos 1 a su cantidad
-                        productoExistente.cantidad = (productoExistente.cantidad || 1) + 1;
+                        if (productoExistente.cantidad >= stock) {
+                            this.errorPedido = 'No hay más unidades disponibles de este producto.';
+                            this.modalAbierto = true;
+                            return;
+                        }
+                        productoExistente.cantidad += 1;
                     } else {
-                        // Si no existe, lo agregamos por primera vez con cantidad 1
                         this.carrito.push({
+                            producto_id: productoId,
                             nombre: nombre,
                             precio: Number(precio),
+                            stock: Number(stock),
                             cantidad: 1,
                         });
                     }
 
                     this.guardarCarrito();
+                    this.modalAbierto = true;
 
                 },
 
@@ -1501,6 +1473,13 @@
                         'carrito_licoreria',
                         JSON.stringify(this.carrito)
                     );
+                },
+
+
+                vaciarCarrito() {
+                    this.carrito = [];
+                    this.guardarCarrito();
+                    this.modalAbierto = false;
                 },
 
 
@@ -1522,44 +1501,54 @@
                     WHATSAPP
 ============================================= */
 
-                enviarAWhatsApp() {
+                async enviarAWhatsApp() {
+                    this.errorPedido = '';
 
                     if (!this.carrito.length) {
-
+                        this.errorPedido = 'Agrega productos antes de confirmar.';
                         return;
-
                     }
 
+                    if (!this.cliente.trim() || !this.telefono.trim()) {
+                        this.errorPedido = 'Ingresa tu nombre y teléfono para continuar.';
+                        return;
+                    }
 
-                    let mensaje =
-                        'Hola, Licorería El Vecino 👋%0A%0A';
+                    this.procesandoPedido = true;
 
-                    mensaje +=
-                        'Quiero realizar el siguiente pedido:%0A%0A';
+                    try {
+                        const response = await fetch(@js(route('pedidos.store')), {
+                            method: 'POST',
+                            headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            },
+                            body: JSON.stringify({
+                                cliente: this.cliente.trim(),
+                                telefono: this.telefono.trim(),
+                                items: this.carrito.map(item => ({
+                                    producto_id: item.producto_id,
+                                    cantidad: item.cantidad,
+                                })),
+                            }),
+                        });
+                        const resultado = await response.json();
 
+                        if (!response.ok) {
+                            this.errorPedido = Object.values(resultado.errors || {})
+                                .flat()[0] || 'No se pudo registrar el pedido.';
+                            return;
+                        }
 
-                    this.carrito.forEach((item, index) => {
-                        let cantidad = item.cantidad || 1;
-                        let subtotal = Number(item.precio) * cantidad;
-
-                        mensaje +=
-                            `${index + 1}. ${cantidad}x ${item.nombre} - $${subtotal.toFixed(2)}%0A`;
-                    });
-
-
-                    mensaje +=
-                        `%0A*Total: $${this.calcularTotal().toFixed(2)}*`;
-
-
-                    const telefono =
-                        '593984088716';
-
-
-                    window.open(
-                        `https://wa.me/${telefono}?text=${mensaje}`,
-                        '_blank'
-                    );
-
+                        const whatsappUrl = resultado.whatsapp_url;
+                        this.vaciarCarrito();
+                        window.location.href = whatsappUrl;
+                    } catch (error) {
+                        this.errorPedido = 'No se pudo conectar. Inténtalo de nuevo.';
+                    } finally {
+                        this.procesandoPedido = false;
+                    }
                 },
                 /* =============================================
                    EFECTO 3D
