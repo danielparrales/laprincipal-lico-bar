@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: licoreria-el-vecino
-    env: docker
-    region: oregon
-    plan: free
